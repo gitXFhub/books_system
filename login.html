@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap 的 CSS 文件 -->
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>用户登录</title>
+</head>
+<body>
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <form action="http://192.168.0.101:5000/login">
+                    <div class="form-group">
+                        <label for="idname">学号</label>
+                        <input type="text" class="form-control" id="idname" aria-describedby="emailHelp">
+                    </div>
+                    <div class="form-group">
+                        <label for="psw">密码</label>
+                        <input type="password" class="form-control" id="psw">
+                    </div>
+                    <button type="button" class="btn btn-primary" id="zc">登录</button>
+                    <a href="register.html" style="float: right; margin-top: 15px;">没有账号？点击注册</a>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="js/jquery.min.js"></script>
+    <script src="dist/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $('#zc').on('click', function() {
+            var idNameV = $("#idname").val();
+            var pswV = $('#psw').val();
+            $.ajax({
+                type: 'GET',
+                url: "http://192.168.0.101:5000/login/",
+                data: {idname: idNameV,psw: pswV},
+                dataType: 'json',
+                success: function(j) {
+                    if (j.login)
+                        window.location.replace("index.html");
+                    else
+                        alert(j.login);
+                },
+                error: function(msg) {
+                    alert(msg.msg);
+                }
+            })
+        })
+    </script>
+</body>
+</html>

@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <!-- 必须的 meta 标签 -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap 的 CSS 文件 -->
+    <link rel="stylesheet" href="dist/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
+    <title>用户注册</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <div class="col-md-12">
+            <form>
+                <div class="form-group">
+                    <label for="name">姓名</label>
+                    <input type="text" class="form-control" id="name" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="idname">学号</label>
+                    <input type="text" class="form-control" id="idname" aria-describedby="emailHelp">
+                </div>
+                <div class="form-group">
+                    <label for="psw">密码</label>
+                    <input type="password" class="form-control" id="psw">
+                </div>
+                <button type="button" class="btn btn-primary" id="zc">注册</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+<script src="js/jquery.min.js"></script>
+<script src="dist/js/bootstrap.bundle.min.js"></script>
+<script>
+    $('#zc').on('click', function() {
+        var nameV = $('#name').val();
+        var idNameV = $("#idname").val();
+        var pswV = $('#psw').val();
+        $.ajax({
+            type: 'GET',
+            url: "http://192.168.0.101:5000/create/",
+            data: {name: nameV,idname: idNameV,psw: pswV},
+            dataType: 'json',
+            success: function(j) {
+                if (j.create)
+                    window.location.replace("index.html");
+            },
+            error: function(msg) {
+                alert(msg.msg);
+            }
+        })
+    })
+</script>
+</body>
+</html>
